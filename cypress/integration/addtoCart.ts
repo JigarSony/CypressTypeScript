@@ -1,0 +1,21 @@
+describe('Add to Cart Scenario', () => {
+    it('Verify add to cart process with valid username and password', () => {
+        cy.visit('https://www.saucedemo.com/')
+        cy.get('#user-name').clear().type('standard_user')
+        cy.get('#password').clear().type('secret_sauce')
+        cy.get('#login-button').click()
+        cy.get('#inventory_container > div > div:nth-child(1) > div.pricebar > button').click()
+        cy.get('.btn_secondary').should('have.text', 'REMOVE')
+        cy.get('.svg-inline--fa').click()
+        cy.get('.subheader').should('have.text','Your Cart')
+        cy.get('.btn_action').click()
+        cy.get('.subheader').should('have.text','Checkout: Your Information')
+        cy.get('#first-name').type('Jigar')
+        cy.get('#last-name').type('Soni')
+        cy.get('#postal-code').type('123456')
+        cy.get('.btn_primary').click()
+        cy.get('.subheader').should('have.text','Checkout: Overview')
+        cy.get('.btn_action').click()
+        cy.get('.subheader').should('have.text','Finish')
+    })
+});
